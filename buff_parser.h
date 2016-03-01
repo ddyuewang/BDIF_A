@@ -11,15 +11,15 @@
 struct record
 {
     std::string time;
-    float price;
+    double price;
     long volume;
 };
 
 // declare function signature
 int test_time_neighbor(long curr, std::deque<record> neighbor);
-bool test_price_neighbor(float curr, float prev, float next);
+bool test_price_neighbor(double curr, double prev, double next);
 int update_JB_factor(std::vector<record> & signal_output, std::vector<double> & return_output,
-                     float & new_price, double & sum, double & sum_square,
+                     double & new_price, double & sum, double & sum_square,
                      double & sum_cubic, double & sum_quadruple);
 
 std::vector<record> buff_record(char buff[])
@@ -210,7 +210,7 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 
     long date_prev, date_current, date_next;
     long time_prev, time_current, time_next;
-    float price_prev, price_after;
+    double price_prev, price_after;
     bool front_boundary, back_boundary;
     front_boundary = false;
     back_boundary = false;
@@ -592,7 +592,7 @@ int test_time_neighbor(long curr, std::deque<record> neighbor)
 }
 
 //  price test how close is it to its neighbor.
-bool test_price_neighbor(float curr, float prev, float next)
+bool test_price_neighbor(double curr, double prev, double next)
 {
     if (curr == 0.0f)
     {
@@ -613,12 +613,12 @@ bool test_price_neighbor(float curr, float prev, float next)
 
 // function to generate the return series and update the corresponding unit
 int update_JB_factor(std::vector<record> & signal_output, std::vector<double> & return_output,
-                     float & new_price, double & sum, double & sum_square,
+                     double & new_price, double & sum, double & sum_square,
                      double & sum_cubic, double & sum_quadruple)
 {
     if (!signal_output.empty())
     {
-        float current_return = new_price/signal_output.back().price - 1.0f;
+        double current_return = new_price/signal_output.back().price - 1.0f;
 
         if (current_return != 0.0) {
             sum += double(current_return);

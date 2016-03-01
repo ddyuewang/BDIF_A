@@ -30,14 +30,14 @@
     <favorites_list name="BDIF_A" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.37737226">
+    <splitter split-orientation="horizontal" split-proportion="0.38978103">
       <split-first>
         <leaf>
           <file leaf-file-name="buff_parser.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/buff_parser.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="-3.6296296">
-                  <caret line="21" column="70" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
+                  <caret line="21" column="71" selection-start-line="21" selection-start-column="71" selection-end-line="21" selection-end-column="71" />
                   <folding />
                 </state>
               </provider>
@@ -46,8 +46,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5794702">
-                  <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
+                <state vertical-scroll-proportion="2.52649">
+                  <caret line="137" column="29" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="29" />
                   <folding />
                 </state>
               </provider>
@@ -60,8 +60,8 @@
           <file leaf-file-name="buff_parser.h" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/buff_parser.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
+                <state vertical-scroll-proportion="-26.444445">
+                  <caret line="53" column="64" selection-start-line="53" selection-start-column="59" selection-end-line="53" selection-end-column="64" />
                   <folding />
                 </state>
               </provider>
@@ -70,10 +70,10 @@
           <file leaf-file-name="MPI_utility.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/MPI_utility.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.34768212">
-                  <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+                <state vertical-scroll-proportion="0.71854305">
+                  <caret line="39" column="18" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="18" />
                   <folding>
-                    <marker date="1456807237000" expanded="true" signature="1464:1580" placeholder="..." />
+                    <marker date="1456807368000" expanded="true" signature="1465:1581" placeholder="..." />
                   </folding>
                 </state>
               </provider>
@@ -99,9 +99,9 @@
         <option value="$PROJECT_DIR$/buff_parser.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/test.cpp" />
-        <option value="$PROJECT_DIR$/buff_parser.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/MPI_utility.h" />
+        <option value="$PROJECT_DIR$/buff_parser.h" />
       </list>
     </option>
   </component>
@@ -316,7 +316,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1456807237000" expanded="true" signature="1464:1580" placeholder="..." />
+            <marker date="1456807368000" expanded="true" signature="1465:1581" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -364,29 +364,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.52649">
+          <caret line="137" column="29" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/buff_parser.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6296296">
-          <caret line="21" column="70" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
+        <state vertical-scroll-proportion="-26.444445">
+          <caret line="53" column="64" selection-start-line="53" selection-start-column="59" selection-end-line="53" selection-end-column="64" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MPI_utility.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34768212">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.71854305">
+          <caret line="39" column="18" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="18" />
           <folding>
-            <marker date="1456807237000" expanded="true" signature="1464:1580" placeholder="..." />
+            <marker date="1456807368000" expanded="true" signature="1465:1581" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5794702">
-          <caret line="25" column="26" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>

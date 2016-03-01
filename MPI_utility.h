@@ -9,7 +9,7 @@
 #define BDIF_A_MPI_UTILITY_H
 
 // helper function to convert double to string
-std::string double_to_string(float input)
+std::string double_to_string(double input)
 {
     std::string result;          // string which will contain the result
     std::stringstream convert;   // stream used for the conversion
