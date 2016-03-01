@@ -12,15 +12,17 @@ MPI_Offset set_buff(char* &p, std::vector<record> input)
 {
     MPI_Offset size_buff = 0;
     for (long i=0; i < input.size(); i++) {
-        size_buff += input[i].time.length() + std::to_string(input[i].price).length() +
-                     std::to_string(input[i].volume).length() + 3;
+        size_buff += input[i].time.length();
+        size_buff += std::to_string(input[i].price).length();
+        size_buff += std::to_string(input[i].volume).length();
+        size_buff += 3;
     }
 //    for (auto &i : input)
 //    {
 //        size_buff += i.time.length() + std::to_string(i.price).length() +
 //                std::to_string(i.volume).length() + 3;
 //    }
-    
+
     // overridden the buffer - reserve the space
     p = new char[size_buff];
     char* tmp = p;
