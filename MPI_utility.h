@@ -3,9 +3,21 @@
 #include <string>
 #include <cstring>
 #include <iostream>
+#include <sstream>
 
 #ifndef BDIF_A_MPI_UTILITY_H
 #define BDIF_A_MPI_UTILITY_H
+
+// helper function to convert double to string
+string double_to_string(double input):
+{
+
+    string result;          // string which will contain the result
+    stringstream convert;   // stream used for the conversion
+    convert << input;      // insert the textual representation of 'Number' in the characters in the stream
+    result = convert.str();
+    return result;
+}
 
 // convert vector to a char array, as MPI could only write char array
 MPI_Offset set_buff(char* &p, std::vector<record> input)
@@ -13,8 +25,10 @@ MPI_Offset set_buff(char* &p, std::vector<record> input)
     MPI_Offset size_buff = 0;
     for (long i=0; i < input.size(); i++) {
         size_buff += input[i].time.length();
-        size_buff += std::to_string(input[i].price).length();
-        size_buff += std::to_string(input[i].volume).length();
+        size_buff += double_to_string(input[i].price).length();
+        size_buff += double_to_string(input[i].volume).length();
+//        size_buff += std::to_string(input[i].price).length();
+//        size_buff += std::to_string(input[i].volume).length();
         size_buff += 3;
     }
 //    for (auto &i : input)
