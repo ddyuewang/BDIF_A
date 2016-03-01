@@ -11,27 +11,39 @@
 MPI_Offset set_buff(char* &p, std::vector<record> input)
 {
     MPI_Offset size_buff = 0;
-    for (auto &i : input)
-    {
-        size_buff += i.time.length() + std::to_string(i.price).length() +
-                std::to_string(i.volume).length() + 3;
+    for (long i=0; i < input.size(); i++) {
+        size_buff += input[i].time.length() + std::to_string(input[i].price).length() +
+                     std::to_string(input[i].volume).length() + 3;
     }
+//    for (auto &i : input)
+//    {
+//        size_buff += i.time.length() + std::to_string(i.price).length() +
+//                std::to_string(i.volume).length() + 3;
+//    }
+
+    std::cout<<size_buff<<std::endl;
 
     // overridden the buffer - reserve the space
     p = new char[size_buff];
     char* tmp = p;
 
     // convert the vector of records to char array
-    for (auto &i : input)
-    {
-        std::string tmp_buff = i.time + "," + std::to_string(i.price) + "," + std::to_string(i.volume);
-//        std::string tmp_buff = i.time + std::to_string(i.price) + std::to_string(i.volume);
+    for (long i=0; i < input.size(); i++) {
+
+        std::string tmp_buff = input[i].time + "," + std::to_string(input[i].price) + "," + std::to_string(input[i].volume);
         strcpy(tmp, tmp_buff.c_str());
-        std::cout << "print out the input " << tmp_buff << std::endl;
         tmp += tmp_buff.length();
         *tmp = '\n';
         tmp = tmp + 1;
     }
+//    for (auto &i : input)
+//    {
+//        std::string tmp_buff = i.time + "," + std::to_string(i.price) + "," + std::to_string(i.volume);
+//        strcpy(tmp, tmp_buff.c_str());
+//        tmp += tmp_buff.length();
+//        *tmp = '\n';
+//        tmp = tmp + 1;
+//    }
 
     return size_buff;
 }
@@ -86,27 +98,21 @@ int mpi_read(char * fname, char * &pbuff, int node_size, int node_rank)
 }
 
 
-//// input list: file name, write_buff ( current vectors changed to buffer -> to be written), current buff size, current rank number, total node numbers)
-int mpi_write(char const* fname, char* &wbuf, long long wsz, int rank, int nodes) {
+// input list: file name, write_buff ( current vectors changed to buffer -> to be written), current buff size, current rank number, total node numbers)
+int mpi_write(char const* fname, char* &pbuff, long long current_size, int rank, int nodes) {
     int ret;
     MPI_File fh;
     MPI_Status status;
 
-//    long long *allsz = (long long*)malloc(sizeof(long long) * nodes);
-    MPI_Offset *allsz = new MPI_Offset[nodes]; // number of nodes, store the size of all nodes
+    MPI_Offset *total_size = new MPI_Offset[nodes]; // number of nodes, store the size of all nodes
 
 
     // combine all the nodes size information to be used to share across
-    MPI_Allgather(&wsz, 1, MPI_LONG, allsz, 1, MPI_LONG, MPI_COMM_WORLD);
-
-    std::cout << "nodes : "  << nodes << std::endl;
+    MPI_Allgather(&current_size, 1, MPI_LONG, total_size, 1, MPI_LONG, MPI_COMM_WORLD);
 
     for (int i = 1; i < nodes; i++) {
-        allsz[i] += allsz[i-1]; // update each node results
+        total_size[i] += total_size[i-1]; // update each node results
     }
-
-    std::cout << "ith partition : " << std::endl;
-    std::cout <<  "allsz[i] : " << allsz[0] << std::endl;
 
     // use MPI file open command, if exists, directly overwrite, o/w create a new
     ret = MPI_File_open(MPI_COMM_WORLD, fname, MPI_MODE_WRONLY|MPI_MODE_CREATE, MPI_INFO_NULL, &fh);
@@ -114,20 +120,14 @@ int mpi_write(char const* fname, char* &wbuf, long long wsz, int rank, int nodes
     //getting the file size
     ret = MPI_File_set_size(fh, 0);
     if (ret) {
-        std::cout << "file open error, mpi_fopen ret:" << ret << std::endl;
+        std::cout << "file open error" << std::endl;
         return 0;
     }
 
-    ret = MPI_File_write_at_all(fh, allsz[rank] - wsz, (void*)wbuf, wsz, MPI_BYTE, &status);
-
-    std::cout << "buffer is:" << wbuf << "!!!!!!!!" <<std::endl;
-
-    std::cout << "parametres for MPI: " << std::endl;
-    std::cout << "allsz[rank] - wsz : " << allsz[rank] - wsz << std::endl;
-    std::cout << "wsz : " << wsz << std::endl;
+    ret = MPI_File_write_at_all(fh, total_size[rank] - current_size, (void*)pbuff, current_size, MPI_BYTE, &status);
 
     if (ret) {
-        std::cout << "file write error, mpi_fwrite ret:" << ret << std::endl;
+        std::cout << "file write error" << std::endl;
         return 0;
     }
 

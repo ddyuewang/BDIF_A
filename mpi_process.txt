@@ -3,3 +3,7 @@ mpic++ main.cpp -I /Users/yuewang/MPI/include
 mpic++ main.cpp -I /Users/yuewang/MPI/include -I /Users/yuewang/glog/include -L /Users/yuewang/glog/lib -lglog 
 mpirun -np 1 a.out                           
 mpirun -np 4 a.out
+
+make clean
+make
+./scrub data10k.txt

@@ -3,16 +3,25 @@
 #include "buff_parser.h"
 #include "MPI_utility.h"
 #include <chrono>
+#include <fstream>
+#include <stdlib.h>
+#include <stdio.h>
+#include <sstream>
 
 using namespace std;
 
 int main(int argc, char **argv) {
+
 
     // getting the file name
     char* fname = argv[1];
     char* pbuff;
 
     /*__________________________ READ ____________________________*/
+    // log time to start reading
+
+    clock_t begin_reading = clock();
+
     // initialize MPI
     MPI_Init(&argc,&argv);
 
@@ -29,6 +38,7 @@ int main(int argc, char **argv) {
     int ret = mpi_read(fname,pbuff,node_size,node_rank); // read file
 
     std::vector<record> input = buff_record(pbuff);
+    clock_t finish_reading = clock(); // finish the reading
 
     //identify the output
     std::vector<record> signal_output;
@@ -39,15 +49,47 @@ int main(int argc, char **argv) {
     double sum_quadruple = 0.0;
     std::vector<double> return_output;
 
+    clock_t begin_srub = clock();
+
     SCRUB(input, signal_output, noise_output,return_output, sum, sum_square, sum_cubic, sum_quadruple);
 
+    clock_t finish_srub = clock();
+
+    /* preliminary print */
 //    cout << input.size() << endl;
 //    cout << signal_output.size() << endl;
 //    cout << noise_output.size() << endl;
 //    cout << sum << "," << sum_square << "," << sum_cubic << "," << sum_quadruple << endl;
 //    cout << return_output.size() << endl;
-//
-    /*______________ Calculate the input of JB test ______________*/
+
+
+    /* ____________________ Generate the output ____________________ */
+
+    clock_t begin_write = clock();
+
+    //save the output to char array
+    MPI_Offset size_signal, size_noise;
+    char* signal_buff;
+    char* noise_buff;
+
+    size_signal = set_buff(signal_buff,signal_output);
+    size_noise = set_buff(noise_buff,noise_output);
+
+//    std::cout<< "size of signal: " << size_signal << endl;
+//    std::cout<< "size of noise: " << size_noise << endl;
+
+    char fname_signal[] = "signal.txt"; // set the output file_name
+    char fname_noise[] = "noise.txt"; // set the output file_name
+
+    // write outputs for noise and signal
+    ret = mpi_write(fname_signal, signal_buff, size_signal, node_rank, node_size); // write file //
+    ret = mpi_write(fname_noise, noise_buff, size_noise, node_rank, node_size); // write file //
+
+    clock_t finish_write = clock();
+
+    /*______________ Normality test ______________*/
+    clock_t begin_test = clock();
+
     int k = 1; // here there is only regressor, namely price
     long n = return_output.size();
     double mean_price = sum/n;
@@ -60,7 +102,7 @@ int main(int argc, char **argv) {
     double c = (mean_quadruple_diff/n) / pow(mean_square_diff/n,2);
 
     double JB_score = (n-k+1)/6 *(pow(s,2) + 1/4.0*pow(c-3,2));
-    cout << "JB score is " << JB_score << endl;
+    //cout << "JB score is " << JB_score << endl;
 
     // reference is, for large sample
     //0.10(level)- 4.61, 0.05(level)-5.99, 0.01(level)- 9.21
@@ -74,25 +116,37 @@ int main(int argc, char **argv) {
         cout << " Conclusion: The return from signal follows normal distribution based on JB test based on 99% confidence interval" << endl;
 
     }
+    clock_t finish_test = clock();
 
-    //save the output to char array
-    MPI_Offset size_signal, size_noise;
-    char* signal_buff;
-    char* noise_buff;
 
-    size_signal = set_buff(signal_buff,signal_output);
-    size_noise = set_buff(noise_buff,noise_output);
+    // generate the log file
+    ofstream log_file;
+    log_file.open("log.txt");
+    stringstream ss;
+    ss << "begin to read data: " << begin_reading << endl
+       << "Time to finish reading: " << finish_reading << endl
+       << "number of record of trading data is: " << input.size()  << endl
+       << "total size of byte is: " << size_noise + size_signal << endl
+       << "It took " << float(finish_reading - begin_reading)/CLOCKS_PER_SEC << " secs to read the data." << endl << endl
 
-    std::cout << "buffer is:" << signal_buff << "!!!!!!!!" <<std::endl;
+       << "begin to scrub data: " << begin_srub << endl
+       << "Time to finish scrubbing: " << finish_srub << endl
+       << "number of record of signal is: " << signal_output.size()  << endl
+       << "size of signal: " << size_signal << " in bytes" << endl
+       << "number of record of noise is: " << noise_output.size()  << endl
+       << "size of noise: " << size_noise  << " in bytes" << endl
+       << "It took " << float(finish_srub - begin_srub)/CLOCKS_PER_SEC << " secs to scrub the data." << endl << endl
 
-    std::cout<< "size of signal: " << size_signal << endl;
-    std::cout<< "size of noise: " << size_noise << endl;
+       << "begin to write data: " << begin_write << endl
+       << "Time to finish writing:" << finish_write << endl
+       << "It took " << float(finish_write - begin_write)/CLOCKS_PER_SEC << " secs to write the data." << endl << endl
 
-    char fname_signal[] = "signal.txt"; // set the output file_name
-    char fname_noise[] = "noise.txt"; // set the output file_name
-    // write outputs for noise and signal
-    ret = mpi_write(fname_signal, signal_buff, size_signal, node_rank, node_size); // write file //
+       << "Time to start normality test: " << begin_test << endl
+       << "Time to finish nornality test: " << finish_test << endl
+       << "It took " << float(finish_test - begin_test)/CLOCKS_PER_SEC << " secs to do normality test."  << endl;
 
+    log_file << ss.str();
+    log_file.close();
 
     return 0;
 }
