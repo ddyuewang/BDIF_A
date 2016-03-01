@@ -10,6 +10,29 @@
 
 using namespace std;
 
+
+//int main()
+//{
+//    double b = 3.0000;
+//    std::string s;
+//    // convert double b to string s
+//    { std::stringstream ss;
+//        ss << b;
+////        ss << "\n";
+//        s = ss.str();
+//    }
+//
+//    std::string s2;
+//    s2 = std::to_string(b);
+//
+//    // do something here with s
+//    std::cout << "3.0000 length is  :" << s.length() << endl;
+//    std::cout << "3.0000 converted to :" << s << std::endl;
+//    std::cout << "3.0000 length is  :" << s2.length() << endl;
+//    std::cout << "3.0000 converted to :" << s2 << std::endl;
+//}
+
+
 int main(int argc, char **argv) {
 
 

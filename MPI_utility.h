@@ -8,7 +8,8 @@
 #ifndef BDIF_A_MPI_UTILITY_H
 #define BDIF_A_MPI_UTILITY_H
 
-// helper function to convert double to string
+// helper function to convert double to string - this function doesnt work well
+// as 3.0000 will be cast to 0
 std::string double_to_string(double input)
 {
     std::string result;          // string which will contain the result
@@ -22,24 +23,11 @@ std::string double_to_string(double input)
 MPI_Offset set_buff(char* &p, std::vector<record> input)
 {
     MPI_Offset size_buff = 0;
-//    for (long i=0; i < input.size(); i++) {
-//        size_buff += input[i].time.length();
-//        size_buff += double_to_string(input[i].price).length();
-//        size_buff += double_to_string(input[i].volume).length();
-////        size_buff += std::to_string(input[i].price).length();
-////        size_buff += std::to_string(input[i].volume).length();
-//        size_buff += 3;
-//    }
-    for (auto &i : input)
-    {
-        size_buff += i.time.length() + std::to_string(i.price).length() +
-                std::to_string(i.volume).length() + 3;
-//        size_buff += i.time.length();
-//        std::cout << double_to_string(i.price).length() << std::endl;
-//        std::cout << std::to_string(i.price).length() << std::endl;
-//        size_buff += double_to_string(i.price).length();
-//        size_buff += double_to_string(i.volume).length();
-//        size_buff += 7;
+    for (long i=0; i < input.size(); i++) {
+        size_buff += input[i].time.length();
+        size_buff += input[i].price.length();
+        size_buff += input[i].volume.length();
+        size_buff += 1;
     }
 
     // overridden the buffer - reserve the space
@@ -57,7 +45,7 @@ MPI_Offset set_buff(char* &p, std::vector<record> input)
 //    }
     for (auto &i : input)
     {
-        std::string tmp_buff = i.time + "," + std::to_string(i.price) + "," + std::to_string(i.volume);
+        std::string tmp_buff = i.time + i.price +i.volume;
         strcpy(tmp, tmp_buff.c_str());
         tmp += tmp_buff.length();
         *tmp = '\n';

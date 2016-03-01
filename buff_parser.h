@@ -11,8 +11,8 @@
 struct record
 {
     std::string time;
-    double price;
-    long volume;
+    std::string price;
+    std::string volume;
 };
 
 // declare function signature
@@ -51,7 +51,7 @@ std::vector<record> buff_record(char buff[])
         }
         tracker++;
 
-        // get the price - use stof to cast from string to float
+        // get the price - use stod to cast from string to float
         while((*tracker) != ',')
         {
             tmp_price += *tracker;
@@ -70,8 +70,10 @@ std::vector<record> buff_record(char buff[])
         // append the data to the vector
         record tmp_rec;
         tmp_rec.time = tmp_time;
-        tmp_rec.price = std::stof(tmp_price);
-        tmp_rec.volume = std::stol(tmp_volume);
+//        tmp_rec.price = std::stod(tmp_price);
+//        tmp_rec.volume = std::stol(tmp_volume);
+        tmp_rec.price = tmp_price;
+        tmp_rec.volume = tmp_volume;
 
         record_vec.push_back(tmp_rec);
 
@@ -142,7 +144,7 @@ int time_converter(std::string time_stamp, long & date, long & time)
         tracker++;
         counter++;
     }
-    double dec_ = std::stof(tmp_dec);
+    double dec_ = std::stod(tmp_dec);
     while (dec_ > 1)
     {
         dec_ = dec_/10;
@@ -228,7 +230,7 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 
         if (neighb_front.size() != 0) {
             time_converter(neighb_front[0].time, date_prev, time_prev);
-            price_prev = neighb_front[0].price;
+            price_prev = std::stod(neighb_front[0].price);
         }
         else {
             front_boundary = true;
@@ -237,7 +239,7 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 
         if (neighb_back.size() != 0) {
             time_converter(neighb_back[0].time, date_next, time_next);
-            price_after = neighb_back[0].price;
+            price_after = std::stod(neighb_back[0].price);
         }
         else {
             back_boundary = true;
@@ -248,7 +250,7 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
         // testing from the price and volume - concurrently update the current to the correct pos
 
 //        std::cout << "current price:" << current_record.price << std::endl;
-        if (!test_price_neighbor(current_record.price, price_prev, price_after) || current_record.volume < 0) {
+        if (!test_price_neighbor(std::stod(current_record.price), price_prev, price_after) || std::stol(current_record.volume) < 0) {
 
             noise_output.push_back(current_record);
 //            std::cout << "passed price is:" << current_record.price << std::endl;
@@ -283,7 +285,8 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 //                std::cout << date_next << "|" << date_current << std::endl;
 //                std::cout << time_next << "|" << time_current << std::endl;
 
-                update_JB_factor(signal_output, return_output, current_record.price, sum, sum_square,
+                double current_price = std::stod(current_record.price);
+                update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                      sum_cubic, sum_quadruple);
 
                 signal_output.push_back(current_record);
@@ -339,8 +342,8 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 //                std::cout << "back boundary: current = prev or lag <5s" << std::endl;
 //                std::cout << date_prev << "|" << date_current << std::endl;
 //                std::cout << time_prev << "|" << time_current << std::endl;
-
-                update_JB_factor(signal_output, return_output, current_record.price, sum, sum_square,
+                double current_price = std::stod(current_record.price);
+                update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                  sum_cubic, sum_quadruple);
                 signal_output.push_back(current_record);
             }
@@ -387,7 +390,8 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 //                    std::cout << "regular boundary case: current !=prev: time within" << std::endl;
 //                    std::cout << time_next << "|" << time_current << std::endl;
 
-                    update_JB_factor(signal_output, return_output, current_record.price, sum, sum_square,
+                    double current_price = std::stod(current_record.price);
+                    update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                      sum_cubic, sum_quadruple);
                     signal_output.push_back(current_record);
 
@@ -449,10 +453,11 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 //                    std::cout << "regular boundary case: current !=next: time within" << std::endl;
 //                    std::cout << time_prev << "|" << time_current << std::endl;
 
-                    update_JB_factor(signal_output, return_output, current_record.price, sum, sum_square,
+                    double current_price = std::stod(current_record.price);
+                    update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                      sum_cubic, sum_quadruple);
                     signal_output.push_back(current_record);
-                    if (current_record.price == 0.0 )
+                    if (std::stod(current_record.price) == 0.0 )
                     // update the front
                     if (neighb_front.size() != 0) {
                         neighb_front.pop_back(); // get out the the first element
@@ -502,7 +507,6 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
                     continue;
                 }
             }
-
             // handle the case where current date = prev date = next date
             else
             {
@@ -512,7 +516,8 @@ int SCRUB(std::vector<record> buff, std::vector<record> & signal_output,
 //                    std::cout << "regular boundary case: current=next=previous: lag within 5" << std::endl;
 //                    std::cout << time_prev << "|" << time_current << std::endl;
 
-                    update_JB_factor(signal_output, return_output, current_record.price, sum, sum_square,
+                    double current_price = std::stod(current_record.price);
+                    update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                      sum_cubic, sum_quadruple);
                     signal_output.push_back(current_record);
 
@@ -618,7 +623,7 @@ int update_JB_factor(std::vector<record> & signal_output, std::vector<double> & 
 {
     if (!signal_output.empty())
     {
-        double current_return = new_price/signal_output.back().price - 1.0f;
+        double current_return = new_price/std::stod(signal_output.back().price) - 1.0f;
 
         if (current_return != 0.0) {
             sum += double(current_return);
