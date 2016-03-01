@@ -70,8 +70,8 @@
           <file leaf-file-name="MPI_utility.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/MPI_utility.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-0.09271523">
-                  <caret line="30" column="64" selection-start-line="30" selection-start-column="64" selection-end-line="30" selection-end-column="64" />
+                <state vertical-scroll-proportion="1.0430464">
+                  <caret line="45" column="3" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -378,8 +378,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MPI_utility.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.09271523">
-          <caret line="30" column="64" selection-start-line="30" selection-start-column="64" selection-end-line="30" selection-end-column="64" />
+        <state vertical-scroll-proportion="1.0430464">
+          <caret line="45" column="3" selection-start-line="45" selection-start-column="3" selection-end-line="45" selection-end-column="3" />
           <folding />
         </state>
       </provider>
