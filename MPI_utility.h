@@ -20,9 +20,7 @@ MPI_Offset set_buff(char* &p, std::vector<record> input)
 //        size_buff += i.time.length() + std::to_string(i.price).length() +
 //                std::to_string(i.volume).length() + 3;
 //    }
-
-    std::cout<<size_buff<<std::endl;
-
+    
     // overridden the buffer - reserve the space
     p = new char[size_buff];
     char* tmp = p;

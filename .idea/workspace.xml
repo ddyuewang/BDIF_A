@@ -30,7 +30,7 @@
     <favorites_list name="BDIF_A" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5759124">
+    <splitter split-orientation="horizontal" split-proportion="0.6160584">
       <split-first>
         <leaf>
           <file leaf-file-name="buff_parser.h" pinned="false" current-in-tab="false">
@@ -46,8 +46,8 @@
           <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/main.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.3907285">
-                  <caret line="134" column="28" selection-start-line="134" selection-start-column="28" selection-end-line="134" selection-end-column="28" />
+                <state vertical-scroll-proportion="2.1821191">
+                  <caret line="104" column="4" selection-start-line="104" selection-start-column="4" selection-end-line="104" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -70,8 +70,8 @@
           <file leaf-file-name="MPI_utility.h" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/MPI_utility.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="2.4834437">
-                  <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
+                <state vertical-scroll-proportion="0.30960265">
+                  <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
                   <folding />
                 </state>
               </provider>
@@ -98,8 +98,8 @@
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/test.cpp" />
         <option value="$PROJECT_DIR$/buff_parser.h" />
-        <option value="$PROJECT_DIR$/MPI_utility.h" />
         <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/MPI_utility.h" />
       </list>
     </option>
   </component>
@@ -354,8 +354,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/buff_parser.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.6296296">
-          <caret line="21" column="70" selection-start-line="21" selection-start-column="70" selection-end-line="21" selection-end-column="70" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="87" column="7" selection-start-line="87" selection-start-column="7" selection-end-line="87" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -368,18 +368,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MPI_utility.h">
+    <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.4834437">
-          <caret line="110" column="56" selection-start-line="110" selection-start-column="56" selection-end-line="110" selection-end-column="56" />
+        <state vertical-scroll-proportion="2.1821191">
+          <caret line="104" column="4" selection-start-line="104" selection-start-column="4" selection-end-line="104" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.cpp">
+    <entry file="file://$PROJECT_DIR$/MPI_utility.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.3907285">
-          <caret line="134" column="28" selection-start-line="134" selection-start-column="28" selection-end-line="134" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.30960265">
+          <caret line="22" column="4" selection-start-line="22" selection-start-column="4" selection-end-line="22" selection-end-column="4" />
           <folding />
         </state>
       </provider>

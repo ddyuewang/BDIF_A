@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
     double c = (mean_quadruple_diff/n) / pow(mean_square_diff/n,2);
 
     double JB_score = (n-k+1)/6 *(pow(s,2) + 1/4.0*pow(c-3,2));
-    //cout << "JB score is " << JB_score << endl;
+    cout << "JB score is " << JB_score << endl;
 
     // reference is, for large sample
     //0.10(level)- 4.61, 0.05(level)-5.99, 0.01(level)- 9.21
