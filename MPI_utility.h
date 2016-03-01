@@ -106,7 +106,7 @@ int mpi_read(char * fname, char * &pbuff, int node_size, int node_rank)
 
 
 // input list: file name, write_buff ( current vectors changed to buffer -> to be written), current buff size, current rank number, total node numbers)
-int mpi_write(char const* fname, char* &pbuff, long long current_size, int rank, int nodes) {
+int mpi_write(char * fname, char* &pbuff, long long current_size, int rank, int nodes) {
     int ret;
     MPI_File fh;
     MPI_Status status;
