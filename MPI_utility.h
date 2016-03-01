@@ -9,7 +9,7 @@
 #define BDIF_A_MPI_UTILITY_H
 
 // helper function to convert double to string
-std::string double_to_string(double input)
+std::string double_to_string(float input)
 {
     std::string result;          // string which will contain the result
     std::stringstream convert;   // stream used for the conversion
@@ -34,6 +34,12 @@ MPI_Offset set_buff(char* &p, std::vector<record> input)
     {
         size_buff += i.time.length() + std::to_string(i.price).length() +
                 std::to_string(i.volume).length() + 3;
+//        size_buff += i.time.length();
+//        std::cout << double_to_string(i.price).length() << std::endl;
+//        std::cout << std::to_string(i.price).length() << std::endl;
+//        size_buff += double_to_string(i.price).length();
+//        size_buff += double_to_string(i.volume).length();
+//        size_buff += 7;
     }
 
     // overridden the buffer - reserve the space
