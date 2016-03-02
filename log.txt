@@ -1,21 +1,22 @@
-begin to read data: 4395
-Time to finish reading: 40797
+begin to read data: 4378
+Time to finish reading: 57245
 number of record of trading data is: 2500
-total size of byte is: 88426
-It took 0.036402 secs to read the data.
+total size of byte is: 87737
+It took 0.052867 secs to read the data.
 
-begin to scrub data: 40798
-Time to finish scrubbing: 53497
-number of record of signal is: 2180
-size of signal: 82314 in bytes
-number of record of noise is: 162
-size of noise: 6112 in bytes
-It took 0.012699 secs to scrub the data.
+begin to scrub data: 57248
+Time to finish scrubbing: 70368
+number of record of signal is: 2146
+size of signal: 81031 in bytes
+number of record of noise is: 178
+size of noise: 6706 in bytes
+It took 0.01312 secs to scrub the data.
 
-begin to write data: 53499
-Time to finish writing:58365
-It took 0.004866 secs to write the data.
+begin to write data: 70370
+Time to finish writing:73895
+It took 0.003525 secs to write the data.
 
-Time to start normality test: 58367
-Time to finish nornality test: 58409
-It took 4.2e-05 secs to do normality test.
+Time to start normality test: 73897
+Time to finish nornality test: 73960
+It took 6.3e-05 secs to do normality test.
+

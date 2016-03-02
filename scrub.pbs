@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#PBS -N scrub
+#PBS -l select=4:ncpus=1,walltime=0:02:00
+#PBS -l place=free
+#PBS -V
+#PBS -q development
+
+cd $PBS_O_WORKDIR
+INPUTFILE=small
+
+echo -n ">>>> PBS Master compute node is: "
+hostname
+echo ""
+
+
+mpirun -np 4  scrub INPUTFILE 2>&1

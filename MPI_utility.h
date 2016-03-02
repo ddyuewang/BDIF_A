@@ -81,9 +81,9 @@ int mpi_read(char * fname, char * &pbuff, int node_size, int node_rank)
     start_point = interval_count * node_rank;
     read_count = node_rank == node_size - 1 ? sz-(node_size-1) * interval_count : interval_count; // partition the read count
 
-    std::cout << "starting piont :" << start_point << std::endl;
-    std::cout << "node_size :" << node_size << std::endl;
-    std::cout << "read count :" << read_count << std::endl;
+//    std::cout << "starting piont :" << start_point << std::endl;
+//    std::cout << "node_size :" << node_size << std::endl;
+//    std::cout << "read count :" << read_count << std::endl;
 
     pbuff = new char[read_count + 1]; // reason is to manually add a stopping criteria - very important
 
@@ -118,17 +118,17 @@ int mpi_write(char * fname, char* &pbuff, long long current_size, int rank, int 
     // combine all the nodes size information to be used to share across
     MPI_Allgather(&current_size, 1, MPI_LONG, total_size, 1, MPI_LONG, MPI_COMM_WORLD);
 
-    std::cout << nodes << std::endl;
+//    std::cout << nodes << std::endl;
 
     for (int i = 1; i < nodes; i++) {
         total_size[i] += total_size[i-1]; // update each node results
     }
-    for (int i = 0; i < nodes; i++) {
-        std::cout << i << std::endl;
-        std::cout << total_size[i] << std::endl;
-    }
+//    for (int i = 0; i < nodes; i++) {
+//        std::cout << i << std::endl;
+//        std::cout << total_size[i] << std::endl;
+//    }
 
-    std::cout << "total size is:" << total_size[0] << std::endl;
+//    std::cout << "total size is:" << total_size[0] << std::endl;
 
     // use MPI file open command, if exists, directly overwrite, o/w create a new
     ret = MPI_File_open(MPI_COMM_WORLD, fname, MPI_MODE_WRONLY|MPI_MODE_CREATE, MPI_INFO_NULL, &fh);
