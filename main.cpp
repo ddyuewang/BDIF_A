@@ -33,7 +33,7 @@ using namespace std;
 //}
 
 
-int main(int argc, char **argv) {
+int main(int argc, char *argv[]) {
 
 
     // getting the file name
@@ -170,6 +170,8 @@ int main(int argc, char **argv) {
 
     log_file << ss.str();
     log_file.close();
+
+    MPI_Finalize();
 
     return 0;
 }

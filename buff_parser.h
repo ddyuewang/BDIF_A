@@ -44,27 +44,33 @@ std::vector<record> buff_record(char buff[])
         std::string tmp_time, tmp_price, tmp_volume;
 
         // get the time
-        while((*tracker) != ',')
+        while((*tracker) != ',' && (*tracker) != 0 )
         {
             tmp_time += *tracker;
             tracker++;
         }
+        if((*tracker) ==0)
+        {break;}
         tracker++;
 
         // get the price - use stod to cast from string to float
-        while((*tracker) != ',')
+        while((*tracker) != ',' && (*tracker) != 0)
         {
             tmp_price += *tracker;
             tracker++;
         }
+        if((*tracker) ==0)
+        {break;}
         tracker++;
 
         // get the volume
-        while((*tracker) != '\n')
+        while((*tracker) != '\n' && (*tracker) != 0)
         {
             tmp_volume += *tracker;
             tracker++;
         }
+        if((*tracker) ==0)
+        {break;}
         tracker++;
 
         // append the data to the vector
