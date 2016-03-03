@@ -4,6 +4,4 @@ mpic++ main.cpp -I /Users/yuewang/MPI/include -I /Users/yuewang/glog/include -L 
 mpirun -np 1 a.out                           
 mpirun -np 4 a.out
 
-make clean
-make
-./scrub data10k.txt
+make clean && make && mpirun -np 4 scrub data100k.txt >log 

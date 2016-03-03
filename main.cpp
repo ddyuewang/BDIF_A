@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
 
     int ret = mpi_read(fname,pbuff,node_size,node_rank); // read file
 
-    std::vector<record> input = buff_record(pbuff);
+    std::vector<record> input = buff_record(pbuff, node_rank);
     clock_t finish_reading = clock(); // finish the reading
 
     //identify the output
@@ -74,9 +74,10 @@ int main(int argc, char *argv[]) {
 
     clock_t begin_srub = clock();
 
-    SCRUB(input, signal_output, noise_output,return_output, sum, sum_square, sum_cubic, sum_quadruple);
-
+    SCRUB(node_rank,input, signal_output, noise_output,return_output, sum, sum_square, sum_cubic, sum_quadruple);
+    std::cout << "rank:" << node_rank << " scrub finished\n";
     clock_t finish_srub = clock();
+//    sleep(100000);
 
     /* preliminary print */
 //    cout << input.size() << endl;
