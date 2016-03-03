@@ -238,19 +238,17 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
     record current_record = *buff_iter; //
     int iddxx = 0;
 // start of the while counter for the current element
-    int temp_iter = 10;
-//    while(buff_iter != buff.end() && temp_iter !=0) {
     while(buff_iter != buff.end()) {
 
-            temp_iter--;
-        iddxx++;
-        if (rank ==2 && iddxx > bug_number) {
-            std::cout << "rank:" << rank << " idx:" << iddxx << " out of " << buff.size()<< std::endl;
-            std::cout << buff_iter->prit() << "\n";
-            std::cout << "front size is:" << neighb_front.size() << std::endl;
-            std::cout << "back size is:" << neighb_back.size() << std::endl;
 
-        }
+        iddxx++;
+//        if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "rank:" << rank << " idx:" << iddxx << " out of " << buff.size()<< std::endl;
+//            std::cout << buff_iter->prit() << "\n";
+//            std::cout << "front size is:" << neighb_front.size() << std::endl;
+//            std::cout << "back size is:" << neighb_back.size() << std::endl;
+//
+//        }
 
         time_converter(current_record.time, date_current, time_current);
 
@@ -278,8 +276,8 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
 //        std::cout << "current price:" << current_record.price << std::endl;
         if (!test_price_neighbor(std::stod(current_record.price), price_prev, price_after) || std::stol(current_record.volume) < 0) {
 
-            if (rank ==2 && iddxx > bug_number) {
-            std::cout << "whats happening:" << std::endl;}
+//            if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "whats happening:" << std::endl;}
 
             noise_output.push_back(current_record);
 //            std::cout << "passed price is:" << current_record.price << std::endl;
@@ -305,6 +303,8 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
 //        /*___________________ date time filter ______________________*/
 //        // first layer testing: if current date diff from the prev and current date - bad data
 
+        // for debugging purpose
+        /*
         if (rank ==2 && iddxx > bug_number) {
             std::cout << "size of the front queue is: " << neighb_front.size() << std::endl;
             std::cout << "size of the back queue is: " << neighb_back.size() << std::endl;
@@ -324,40 +324,23 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
                 }
             }
         }
-
-//        if (neighb_front.size() != 0) {
-//            std::cout << "print the queue informtion:" << std::endl;
-//            std::cout << "print out the front queue : " << neighb_front.size() << std::endl;
-//            for (std::deque<record>::iterator it = neighb_front.begin(); it != neighb_front.end(); ++it) {
-//                std::cout << it->time << "|" << it->price << "|" << it->volume << "||||||||" ;
-//            }
-//        }
-//        if (neighb_back.size() != 0) {
-//            std::cout << std::endl << "---------------" << std::endl;
-//            std::cout << "print out the back queue : " << neighb_back.size() << std::endl;
-//            for (std::deque<record>::iterator it = neighb_back.begin(); it != neighb_back.end(); ++it) {
-//                std::cout << it->time << "|" << it->price << "|" << it->volume << "||||||||" ;
-//            }
-//        }
+        */
 
         /* check the front boundary case */
-        if (rank ==2 && iddxx > bug_number) {
-            std::cout << "front boundary is:" << front_boundary << std::endl;
-        }
+//        if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "front boundary is:" << front_boundary << std::endl;
+//        }
 
         /*_______________________________________ FRONT BOUNDARY _______________________________________*/
         if (front_boundary) {
             
-            if (rank ==2 && iddxx > bug_number) {
-                std::cout << "front boundary case" <<  std::endl;
-            }
+//            if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "front boundary case" <<  std::endl;
+//            }
             if (date_current == date_next && std::abs(time_next - time_current) < 5) {
 
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "front boundary: current = next, lag < 5s" << std::endl;}
-                
-//                std::cout << date_next << "|" << date_current << std::endl;
-//                std::cout << time_next << "|" << time_current << std::endl;
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "front boundary: current = next, lag < 5s" << std::endl;}
 
                 double current_price = std::stod(current_record.price);
                 update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
@@ -372,26 +355,14 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
                 neighb_back.pop_front(); // get out the the first element
                 buff_iter++;
 
-//                if (neighb_back.size() != 0) {
-//                    current_record = neighb_back[0]; // update the buff to next position
-//                    neighb_back.pop_front(); // get out the the first element
-//                    buff_iter++;
-//                }
-//                else
-//                {
-//                    break;
-//                }
-
-                front_boundary = false;
+                front_boundary = false; // update the boundary
                 continue;
             }
             else {
                 noise_output.push_back(current_record);
-                if (rank ==2 && iddxx > bug_number) {
-                    std::cout << "front boundary: current != next or lag > 5s" << std::endl;
-                }
-//                std::cout << date_next << "|" << date_current << std::endl;
-//                std::cout << time_next << "|" << time_current << std::endl;
+//                if (rank ==2 && iddxx > bug_number) {
+//                    std::cout << "front boundary: current != next or lag > 5s" << std::endl;
+//                }
 
                 // update the current cursor
                 neighb_back.push_back(*tmp_back); // update the later sliding windows
@@ -400,33 +371,22 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
                 neighb_back.pop_front(); // get out the the first element
                 buff_iter++;
 
-//                if (neighb_back.size() != 0) {
-////                    std::cout << " neighb_back is not zero " << std::endl;
-//                    current_record = neighb_back[0]; // update the buff to next position
-//                    neighb_back.pop_front(); // get out the the first element
-//                    buff_iter++;
-//                }
-//                else
-//                {
-//                    break;
-//                }
                 front_boundary = false;
                 continue;
             }
         }
         /*_______________________________________ BACK BOUNDARY _______________________________________*/
         /* check the back boundary case */
-        if (rank ==2 && iddxx > bug_number) {
-            std::cout << "back boundary is:" << back_boundary << std::endl;
-        }
+//        if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "back boundary is:" << back_boundary << std::endl;
+//        }
         if (back_boundary) {
-            if (rank ==2 && iddxx > bug_number) {
-            std::cout << "back boundary case" << std::endl;}
+//            if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "back boundary case" << std::endl;}
             if (date_current == date_prev && std::abs(time_next - time_current) < 5) {
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "back boundary: current = prev or lag <5s" << std::endl;}
-//                std::cout << date_prev << "|" << date_current << std::endl;
-//                std::cout << time_prev << "|" << time_current << std::endl;
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "back boundary: current = prev or lag <5s" << std::endl;}
+
                 double current_price = std::stod(current_record.price);
                 update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
                                  sum_cubic, sum_quadruple);
@@ -435,28 +395,26 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
             else {
                 //finish the program
                 noise_output.push_back(current_record);
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "back boundary: current != prev or lag >5s" << std::endl;}
-//                std::cout << date_prev << "|" << date_current << std::endl;
-//                std::cout << time_prev << "|" << time_current << std::endl;
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "back boundary: current != prev or lag >5s" << std::endl;}
 
             }
             return 0;
         }
 
 
-        if (rank ==2 && iddxx > bug_number) {
-        std::cout << " if boundary boundary condition being met or not :" << (!front_boundary && !back_boundary) << std::endl;}
+//        if (rank ==2 && iddxx > bug_number) {
+//        std::cout << " if boundary boundary condition being met or not :" << (!front_boundary && !back_boundary) << std::endl;}
 
         // regular case handling
         /*_______________________________________ REGULAR CASE _______________________________________*/
 
         if (!front_boundary && !back_boundary) {
-            if (rank ==2 && iddxx > bug_number) {
-            std::cout << "regular boundary case" << std::endl;}
+//            if (rank ==2 && iddxx > bug_number) {
+//            std::cout << "regular boundary case" << std::endl;}
             if (date_current != date_prev && date_current != date_next) {
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "regular boundary case: each not equal" << std::endl;}
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "regular boundary case: each not equal" << std::endl;}
                 noise_output.push_back(current_record);
                 // update the current cursor
                 if (neighb_back.size() != 0) {
@@ -479,13 +437,12 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
 
             }
             else if (date_current != date_prev) {
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "regular boundary case: current !=prev" << std::endl;}
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "regular boundary case: current !=prev" << std::endl;}
                 // neighborhood check for the forward data
                 if (test_time_neighbor(time_current, neighb_back)) {
-                    if (rank ==2 && iddxx > bug_number) {
-                    std::cout << "regular boundary case: current !=prev: time within" << std::endl;}
-//                    std::cout << time_next << "|" << time_current << std::endl;
+//                    if (rank ==2 && iddxx > bug_number) {
+//                    std::cout << "regular boundary case: current !=prev: time within" << std::endl;}
 
                     double current_price = std::stod(current_record.price);
                     update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
@@ -521,9 +478,8 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
                     continue;
                 }
                 else {
-                    if (rank ==2 && iddxx > bug_number) {
-                    std::cout << "regular boundary case: current !=prev: time not" << std::endl;}
-//                    std::cout << time_next << "|" << time_current << std::endl;
+//                    if (rank ==2 && iddxx > bug_number) {
+//                    std::cout << "regular boundary case: current !=prev: time not" << std::endl;}
 
                     noise_output.push_back(current_record);
 
@@ -548,13 +504,12 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
 
             }
             else if (date_current != date_next) {
-                if (rank ==2 && iddxx > bug_number) {
-                std::cout << "regular boundary case: current !=next" << std::endl;}
+//                if (rank ==2 && iddxx > bug_number) {
+//                std::cout << "regular boundary case: current !=next" << std::endl;}
                 // neighborhood check for the backward data
                 if (test_time_neighbor(time_current, neighb_back)) {
-                    if (rank ==2 && iddxx > bug_number) {
-                    std::cout << "regular boundary case: current !=next: time within" << std::endl;}
-//                    std::cout << time_prev << "|" << time_current << std::endl;
+//                    if (rank ==2 && iddxx > bug_number) {
+//                    std::cout << "regular boundary case: current !=next: time within" << std::endl;}
 
                     double current_price = std::stod(current_record.price);
                     update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
@@ -589,10 +544,9 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
 
                 }
                 else {
-                    if (rank ==2 && iddxx > bug_number) {
-                    std::cout << "regular boundary case: current !=next: time within" << std::endl;}
-//                    std::cout << time_prev << "|" << time_current << std::endl;
-                    noise_output.push_back(current_record);
+//                    if (rank ==2 && iddxx > bug_number) {
+//                    std::cout << "regular boundary case: current !=next: time within" << std::endl;}
+//                    noise_output.push_back(current_record);
 
                     if (neighb_back.size() != 0) {
                         current_record = neighb_back[0]; // update the buff to next position
@@ -617,12 +571,12 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
             // handle the case where current date = prev date = next date
             else
             {
-                if (rank ==2 && iddxx > bug_number) {std::cout << "regular boundary case: current=next=previous" << std::endl;}
+                //debugging usage
+//                if (rank ==2 && iddxx > bug_number) {std::cout << "regular boundary case: current=next=previous" << std::endl;}
                 if((std::abs(time_prev - time_current) < 5) && (std::abs(time_next - time_current) < 5))
                 {
-                    if (rank ==2 && iddxx > bug_number) {
-                        std::cout << "regular boundary case: current=next=previous: lag within 5" << std::endl;}
-//                    std::cout << time_prev << "|" << time_current << std::endl;
+//                    if (rank ==2 && iddxx > bug_number) {
+//                        std::cout << "regular boundary case: current=next=previous: lag within 5" << std::endl;}
 
                     double current_price = std::stod(current_record.price);
                     update_JB_factor(signal_output, return_output, current_price, sum, sum_square,
@@ -656,9 +610,9 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
                 }
                 else
                 {
-                    if (rank ==2 && iddxx > bug_number) {
-                        std::cout << "regular boundary case: current=next=previous: lag > 5" << std::endl;}
-//                    std::cout << time_prev << "|" << time_current << std::endl;
+                    // debugging purpose
+//                    if (rank ==2 && iddxx > bug_number) {
+//                        std::cout << "regular boundary case: current=next=previous: lag > 5" << std::endl;}
 
                     noise_output.push_back(current_record);
 

@@ -10,29 +10,6 @@
 
 using namespace std;
 
-
-//int main()
-//{
-//    double b = 3.0000;
-//    std::string s;
-//    // convert double b to string s
-//    { std::stringstream ss;
-//        ss << b;
-////        ss << "\n";
-//        s = ss.str();
-//    }
-//
-//    std::string s2;
-//    s2 = std::to_string(b);
-//
-//    // do something here with s
-//    std::cout << "3.0000 length is  :" << s.length() << endl;
-//    std::cout << "3.0000 converted to :" << s << std::endl;
-//    std::cout << "3.0000 length is  :" << s2.length() << endl;
-//    std::cout << "3.0000 converted to :" << s2 << std::endl;
-//}
-
-
 int main(int argc, char *argv[]) {
 
 
@@ -75,8 +52,8 @@ int main(int argc, char *argv[]) {
     clock_t begin_srub = clock();
 
     SCRUB(node_rank,input, signal_output, noise_output,return_output, sum, sum_square, sum_cubic, sum_quadruple);
-    std::cout << "rank:" << node_rank << " scrub finished\n";
-    clock_t finish_srub = clock();
+//    std::cout << "rank:" << node_rank << " scrub finished\n";
+//    clock_t finish_srub = clock();
 //    sleep(100000);
 
     /* preliminary print */
@@ -85,7 +62,6 @@ int main(int argc, char *argv[]) {
 //    cout << noise_output.size() << endl;
 //    cout << sum << "," << sum_square << "," << sum_cubic << "," << sum_quadruple << endl;
 //    cout << return_output.size() << endl;
-
 
     /* ____________________ Generate the output ____________________ */
 
@@ -130,6 +106,7 @@ int main(int argc, char *argv[]) {
 
     // reference is, for large sample
     //0.10(level)- 4.61, 0.05(level)-5.99, 0.01(level)- 9.21
+!
     std::cout << "Normality test results: " << std::endl;
     if (JB_score > 9.21)
     {
