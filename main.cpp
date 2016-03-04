@@ -53,7 +53,7 @@ int main(int argc, char *argv[]) {
 
     SCRUB(node_rank,input, signal_output, noise_output,return_output, sum, sum_square, sum_cubic, sum_quadruple);
 //    std::cout << "rank:" << node_rank << " scrub finished\n";
-//    clock_t finish_srub = clock();
+    clock_t finish_srub = clock();
 //    sleep(100000);
 
     /* preliminary print */
@@ -106,7 +106,6 @@ int main(int argc, char *argv[]) {
 
     // reference is, for large sample
     //0.10(level)- 4.61, 0.05(level)-5.99, 0.01(level)- 9.21
-!
     std::cout << "Normality test results: " << std::endl;
     if (JB_score > 9.21)
     {
