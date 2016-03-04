@@ -15,12 +15,12 @@ struct record
     std::string time;
     std::string price;
     std::string volume;
-    string prit() {
+    string prit() { // for debugging purpose
         return time+","+price+","+volume;
     }
 };
 
-int bug_number = 23460;
+// int bug_number = 23460;
 // declare function signature
 int test_time_neighbor(long curr, std::deque<record> neighbor);
 bool test_price_neighbor(double curr, double prev, double next);
@@ -92,7 +92,7 @@ std::vector<record> buff_record(char buff[], int rank)
         record_vec.push_back(tmp_rec);
 
     }
-    std::cout << "Rank:" << rank << " buff_rec returned\n";
+//    std::cout << "Rank:" << rank << " buff_rec returned\n";
     return record_vec;
 }
 
@@ -232,7 +232,7 @@ int SCRUB(int rank, std::vector<record> buff, std::vector<record> & signal_outpu
     front_boundary = false;
     back_boundary = false;
 
-    std::cout << "Rank" << rank << " Inited\n";
+    //std::cout << "Rank" << rank << " Inited\n";
     /*________________ Finish the initialization __________________*/
 
     record current_record = *buff_iter; //

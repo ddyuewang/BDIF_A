@@ -102,22 +102,26 @@ int main(int argc, char *argv[]) {
     double c = (mean_quadruple_diff/n) / pow(mean_square_diff/n,2);
 
     double JB_score = (n-k+1)/6 *(pow(s,2) + 1/4.0*pow(c-3,2));
-    cout << "JB score is " << JB_score << endl;
+    ofstream test_file;
+    test_file.open("Normality_test.txt");
+    stringstream ss_;
+    ss_ << "JB score is " << JB_score << endl;
 
     // reference is, for large sample
     //0.10(level)- 4.61, 0.05(level)-5.99, 0.01(level)- 9.21
-    std::cout << "Normality test results: " << std::endl;
+    ss_ << "Normality test results: " << std::endl;
     if (JB_score > 9.21)
     {
-        cout << " Conclusion: The return from signal doesnt follow normal distribution based on JB test" << endl;
+        ss_ << " Conclusion: The return from signal doesnt follow normal distribution based on JB test" << endl;
     }
     else
     {
-        cout << " Conclusion: The return from signal follows normal distribution based on JB test based on 99% confidence interval" << endl;
+        ss_ << " Conclusion: The return from signal follows normal distribution based on JB test based on 99% confidence interval" << endl;
 
     }
     clock_t finish_test = clock();
-
+    test_file << ss_.str();
+    test_file.close();
 
     // generate the log file
     ofstream log_file;

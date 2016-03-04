@@ -123,10 +123,10 @@ int mpi_write(char * fname, char* &pbuff, long long current_size, int rank, int 
     for (int i = 1; i < nodes; i++) {
         total_size[i] += total_size[i-1]; // update each node results
     }
-    for (int i = 0; i < nodes; i++) {
-        std::cout << "rank number:" << i << std::endl;
-        std::cout << "rank size" << total_size[i] << std::endl;
-    }
+//    for (int i = 0; i < nodes; i++) {
+//        std::cout << "rank number:" << i << std::endl;
+//        std::cout << "rank size" << total_size[i] << std::endl;
+//    }
 
 //    std::cout << "total size is:" << total_size[0] << std::endl;
 

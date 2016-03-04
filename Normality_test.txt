@@ -1,0 +1,3 @@
+JB score is 2388.59
+Normality test results: 
+ Conclusion: The return from signal doesnt follow normal distribution based on JB test
